@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:siasa/game.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() => runApp(new MyApp());
 
@@ -32,6 +33,8 @@ class _MyHomePageState extends State<MyHomePage> {
     if(_name.isEmpty){
       return;
     }
+    Firestore.instance.collection('Players').document()
+        .setData({ 'name': _name, 'timeStamp': TimeOfDay.now().toString() });
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => GameScreen(_name)),
