@@ -3,11 +3,29 @@
   <head>
     <meta charset="UTF-8">
     <title>Starting Game</title>
+
+    <script src="https://www.gstatic.com/firebasejs/5.5.7/firebase.js"></script>
+    <script>
+      // Initialize Firebase
+      var config = {
+        apiKey: "AIzaSyCdY9P2WSD05gRRzGjILt2BQxBVh3zdH8o",
+        authDomain: "siasa-26e55.firebaseapp.com",
+        databaseURL: "https://siasa-26e55.firebaseio.com",
+        projectId: "siasa-26e55",
+        storageBucket: "siasa-26e55.appspot.com",
+        messagingSenderId: "385874962792"
+      };
+      firebase.initializeApp(config);
+    </script>
+    <script src="index.js"></script>
     <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
   </head>
   <body>
-    <button>Start Game</button>
+
+    <button class="btn btn-primary btn-lg btn-block fixed-bottom" id="StartButton">Start Game</button>
   </body>
 </html>
