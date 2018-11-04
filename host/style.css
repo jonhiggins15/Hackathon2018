@@ -2,6 +2,11 @@ body {
     margin: 0;
 }
 
+h1{
+    font-size: 7em !important;
+    font-weight: 600 !important;
+}
+
 h2{
     font-size: 3em;
     margin-top: 0px;
@@ -53,6 +58,12 @@ h2{
     position: absolute;
 }
 
+#LastBillPassed{
+    left: 1em;
+    bottom: 3.5em;
+    position: absolute;
+}
+
 #HeaderDiv{
     background-color: pink;
     width: 100%;
@@ -69,6 +80,10 @@ h2{
     margin: 0%;
 }
 
+#NamesDiv{
+    display: flex;
+}
+
 #VotePercentDiv{
     left: 50%;
     right: 50%;
@@ -77,3 +92,50 @@ h2{
 #Timer{
     float: right;
 }
+
+#LoadingTitle{
+    color: white;
+    top: 50%;
+    bottom: 50%
+}
+
+/* Rainbow loading animation from https://codepen.io/nohoid/pen/kIfto */
+.LoadWrapper { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    left:0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+  background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+  background-size: 1800% 1800%;
+  
+  -webkit-animation: rainbow 10s ease infinite;
+  -z-animation: rainbow 10s ease infinite;
+  -o-animation: rainbow 10s ease infinite;
+    animation: rainbow 10s ease infinite;}
+  
+  @-webkit-keyframes rainbow {
+      0%{background-position:0% 82%}
+      50%{background-position:100% 19%}
+      100%{background-position:0% 82%}
+  }
+  @-moz-keyframes rainbow {
+      0%{background-position:0% 82%}
+      50%{background-position:100% 19%}
+      100%{background-position:0% 82%}
+  }
+  @-o-keyframes rainbow {
+      0%{background-position:0% 82%}
+      50%{background-position:100% 19%}
+      100%{background-position:0% 82%}
+  }
+  @keyframes rainbow { 
+      0%{background-position:0% 82%}
+      50%{background-position:100% 19%}
+      100%{background-position:0% 82%}
+  }
