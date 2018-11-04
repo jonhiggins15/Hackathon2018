@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "385874962792",
+    "firebase_url": "https://siasa-26e55.firebaseio.com",
+    "project_id": "siasa-26e55",
+    "storage_bucket": "siasa-26e55.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385874962792:android:a2b35219ff0fa1de",
+        "android_client_info": {
+          "package_name": "com.ianleshan.siasa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "385874962792-6d77ou9lmh3ba966ncqdl2anc95r9d8i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvmMEPuDEFMgHIeIclloXnzWNt9xZDc0U"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
