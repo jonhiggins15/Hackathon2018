@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:siasa/Player.dart';
 
 //class Game extends StatelessWidget{
 //
@@ -13,23 +15,23 @@ import 'package:flutter/material.dart';
 //}
 
 class GameScreen extends StatefulWidget {
-  final String _name;
+  final Player _player;
 
-  GameScreen(this._name);
+  GameScreen(this._player);
 
   @override
   State<StatefulWidget> createState() {
-    return GameScreenState(_name);
+    return GameScreenState(_player);
   }
 }
 
 enum Screens { YOUR_BILLS, ALL_BILLS, VOTE }
 
 class GameScreenState extends State<GameScreen> {
-  String _name;
+  Player _player;
   Screens _currentScreen = Screens.ALL_BILLS;
 
-  int _currentIndex = 0;
+  int _currentIndex = 1;
   List<Widget> _children = [];
 
   @override
@@ -38,13 +40,13 @@ class GameScreenState extends State<GameScreen> {
     _children = [yourBillsView(), allBillsScreen(), voteScreen()];
   }
 
-  GameScreenState(this._name);
+  GameScreenState(this._player);
 
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: AppBar(
-        title: Text("Hello $_name"),
+        title: Text("Hello ${_player.name}"),
       ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -111,10 +113,26 @@ class GameScreenState extends State<GameScreen> {
   yourBillsView() {
     return Container(
       child: Center(
-        child: Column(
-          children: <Widget>[
-            Text("Your bills"),
-          ],
+        child: StreamBuilder(
+          stream: Firestore.instance.collection("Users").snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+                return new Text('Loading...');
+              default:
+                var p = snapshot.data;
+                print(p);
+                return ListView.builder(
+                  itemCount: p.length,
+                  itemBuilder: (BuildContext context, i) {
+                    return policyCard(
+                        p[i], p[i]['description']);
+                  },
+                );
+            }
+          },
         ),
       ),
     );
@@ -123,7 +141,48 @@ class GameScreenState extends State<GameScreen> {
   allBillsScreen() {
     return Container(
       child: Center(
-        child: Text("All bills"),
+        child: StreamBuilder(
+          stream: Firestore.instance.collection("Policies").snapshots(),
+          builder:
+              (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.hasError) return new Text('Error: ${snapshot.error}');
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+                return new Text('Loading...');
+              default:
+                var p = snapshot.data;
+                print(p);
+                return ListView.builder(
+                  itemCount: p.documents.length,
+                  itemBuilder: (BuildContext context, i) {
+                    return policyCard(
+                        p.documents[i]['name'], p.documents[i]['description']);
+                  },
+                );
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+  policyCard(name, desc) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              name,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
+              ),
+            ),
+            Text(desc),
+          ],
+        ),
       ),
     );
   }

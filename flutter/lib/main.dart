@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:siasa/Player.dart';
 import 'package:siasa/game.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() => runApp(new MyApp());
 
@@ -10,7 +12,7 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: 'Siasa',
       theme: new ThemeData(
-        primarySwatch: Colors.teal,
+        primarySwatch: Colors.pink,
       ),
       home: new MyHomePage(title: 'Siasa'),
       debugShowCheckedModeBanner: false,
@@ -29,15 +31,21 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String _name = "";
 
-  void _startGame() {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  void _startGame() async{
     if(_name.isEmpty){
       return;
     }
-    Firestore.instance.collection('Players').document()
-        .setData({ 'name': _name, 'timeStamp': TimeOfDay.now().toString() });
+
+    FirebaseUser user = await _auth.signInAnonymously();
+    String id = await user.getIdToken();
+
+    Firestore.instance.collection('Users').document(id)
+        .setData({ 'name': _name, 'uid': id});
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => GameScreen(_name)),
+      MaterialPageRoute(builder: (context) => GameScreen(Player(_name, id))),
     );
   }
 
